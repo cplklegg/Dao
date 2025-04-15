@@ -14,5 +14,4 @@ contract DAO {
    	token = _token;
    	quorum = _quorum;
    }
-
 }

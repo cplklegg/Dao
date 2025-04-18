@@ -17,6 +17,8 @@ describe('DAO', () => {
     let accounts = await ethers.getSigners()
     deployer = accounts[0]
     funder = accounts[1]
+    investor1 = accounts[2]
+    recipient = accounts[3]
 
     //Deploy Token
     const Token = await ethers.getContractFactory('Token')
@@ -45,5 +47,34 @@ describe('DAO', () => {
     })
 
   })
+
+  describe('Proposal creation', () => {
+    let transaction, result
+
+    describe('Success', () => {
+      
+      beforeEach(async () => {
+        transaction = await dao. connect(investor1).createProposal('Proposal eins', ether(100), recipient.address)
+        result = await transaction.wait()
+      })
+
+      it('updates proposal count', async () => {
+        expect(await dao.proposalCount()).to.equal(1)
+      })
+
+      it('', async () => {
+
+      })
+
+    })
+
+  })
+
+    describe('Failure', () => {
+
+    })
+
+  
+
 
 })

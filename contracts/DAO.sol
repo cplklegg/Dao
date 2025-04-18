@@ -40,8 +40,16 @@ contract DAO {
       proposalCount++;
 
       // Create a Proposal
-      Proposal(proposalCount, _name, _amount, _recipient, 0, false);
+      
 
+      proposals[proposalCount] = Proposal(
+         proposalCount, 
+         _name, 
+         _amount, 
+         _recipient, 
+         0, 
+         false
+      );
    }
 
 }

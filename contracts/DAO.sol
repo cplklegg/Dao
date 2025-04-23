@@ -73,4 +73,16 @@ contract DAO {
 
    }
 
+   function vote(uint256 _id) external onlyInvestor {
+      // Fetch proposal from mapping by id
+      Proposal storage proposal = proposals[_id];
+
+      // update votes
+      proposal.votes += token.balanceOf(msg.sender);
+
+      // track that user has voted
+
+      // Emit an event
+   }
+
 }

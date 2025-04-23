@@ -108,12 +108,7 @@ describe('DAO', () => {
         await expect(transaction).to.emit(dao, 'Propose')
           .withArgs(1, ether(100), recipient.address, investor1.address)
       })
-
-      
-
     })
-
-  })
 
     describe('Failure', () => {
       it('rejects invalid amount', async () => {
@@ -123,15 +118,49 @@ describe('DAO', () => {
       it('reject non-investor', async () => {
         await expect(dao.connect(user).createProposal('Proposal 1', ether(100), recipient.address)).to.be.reverted
       })
+    })
+  })
+    
+  describe('Voting', () => {
+      let transaction, result
 
+      beforeEach(async () => {
+                transaction = await dao. connect(investor1).createProposal('Proposal 1', ether(100), recipient.address)
+                result = await transaction.wait()
+              })
 
-      it('', async () => {
+      describe('Success', () => {
+        
+        beforeEach(async () => {
+                transaction = await dao. connect(investor1).vote(1)
+                result = await transaction.wait()
+              })
+        
+
+        it('updates vote count', async () => {
+          const proposal = await dao.proposals(1)
+          expect(proposal.votes).to.equal(tokens(200000))
+        })
+      
+      })
+
+      describe('Failure', () => {
+   /*     it('rejects invalid amount', async () => {
+          await expect(dao.connect(investor1).createProposal('Proposal 1', ether(1000), recipient.address)).to.be.reverted
+        })
+
+        it('reject non-investor', async () => {
+          await expect(dao.connect(user).createProposal('Proposal 1', ether(100), recipient.address)).to.be.reverted
+        })
+*/
+
+        it('', async () => {
+
+        })
 
       })
 
     })
-
-  
 
 
 })

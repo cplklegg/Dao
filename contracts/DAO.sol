@@ -106,6 +106,9 @@ contract DAO {
       // Fetch proposal from mapping by id
       Proposal storage proposal = proposals[_id];
 
+      // Ensure proposal is not already finalized
+      require(proposal.finalized == false, "proposal already finalized");
+
       // Mark proposal as finalized
       proposal.finalized = true;
 

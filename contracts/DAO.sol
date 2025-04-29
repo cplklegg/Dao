@@ -34,6 +34,8 @@ contract DAO {
       address investor
       );
 
+   event Finalize(uint256 id);
+
    constructor(Token _token, uint256 _quorum) {
    	owner = msg.sender;
    	token = _token;
@@ -113,11 +115,17 @@ contract DAO {
       proposal.finalized = true;
 
       // Check that proposal has enough votes
+      require(proposal.votes >= quorum, "must reach quorum to finalize proposal");
 
-      // Transfer the funds
+      // Check that thte contract has enough ether
+      require(address(this).balance >= proposal.amount);
+
+      // Transfer the funds to recipient
+      (bool sent, ) = proposal.recipient.call{value: proposal.amount}("");
+      require(sent);
 
       // Emit event
-
+      emit Finalize(_id);
    }
 
 }

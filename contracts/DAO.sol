@@ -79,9 +79,7 @@ contract DAO {
          msg.sender
       );
 
-   }
-
-   
+   }   
 
 
    // Vote on proposal
@@ -127,5 +125,4 @@ contract DAO {
       // Emit event
       emit Finalize(_id);
    }
-
 }

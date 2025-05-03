@@ -25,7 +25,8 @@ async function main() {
 
     console.log('Fetching token and transferring to accounts...\n')
 
-
+    const token = await ethers.getContractAt('Token', '0x5fbdb2315678afecb367f032d93f642f64180aa3')
+    console.log('Token fetched: ${token.address}\n')
 }
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.

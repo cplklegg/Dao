@@ -11,9 +11,20 @@ const Create = ({ provider, dao, setIsLoading }) => {
 
 	const createHandler = async (e) => {
 		e.preventDefault()
-		console.log('Creating [proposal...', name, amount, address)
-	}
+		
+		try {
+			const signer = await provider.getSigner()
+			const formattedAmount = ethers.utils.parseUnits(amount.toString(), 'ether')
 
+			const transaction = await dao.connect(signer).createProposal(name, formattedAmount, address)
+			await transaction.wait()
+		} catch {
+			window.alert('User rejected or transaction reverted')
+		}
+	
+		setIsLoading(true)
+	}
+		
 	return(
 		<Form onSubmit={createHandler}>
 			<Form.Group style={{ maxWidth: '450px', margin: '50px auto' }}>
